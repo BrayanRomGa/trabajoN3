@@ -72,8 +72,6 @@ class UserController extends Controller
             abort(401,"PermisosDenegados");
         }
 
-
-
         public function actualizarUsuario(Request $request)
         {
             if($request->user()->tokenCan('UsuarioNormal') || $request->user()->tokenCan('UsuarioAdmon'))
@@ -108,8 +106,6 @@ class UserController extends Controller
             }abort(401,"PermisosDenegados");
         }
     
-
-
 
 
         public function plantillaToken(Request $request)

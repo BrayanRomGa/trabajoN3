@@ -27,7 +27,7 @@ class authTokenController extends Controller
             ]);
         }
         $token=$user->createToken($request->email,['UsuarioNormal'])->plainTextToken;
-        return \response()->json(["UsuarioNormal"=>$token],201);
+        return \response()->json(["PermisosDeUsuarioNormal"=>$token],201);
     }
 
 

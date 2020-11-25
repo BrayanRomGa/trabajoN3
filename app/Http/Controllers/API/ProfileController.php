@@ -10,8 +10,8 @@ use App\Model\perfil;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Facades\Mail;
-use App\Mail\envioVerificacionCorreo;
+use Illuminate\Support\Facades\Mail;   // referencia al email
+use App\Mail\envioVerificacionCorreo;   //adjuntar el controlador del correo
 
 class ProfileController extends Controller
 {
@@ -25,16 +25,15 @@ class ProfileController extends Controller
         $guardpersonas->numPer=random_int($min="1000",$max=999999);
 
         if($guardpersonas->save())
-        {
+        {       //informacion para mandar al correo
             $datosUsuCorreo=[
                 'nombre'=>$guardpersonas->nombre,
                 'apellido'=>$guardpersonas->apellido,
                 'email'=>$guardpersonas->email,
 
-                'direccionTxT'=>"/api/saveUsuario/{$guardpersonas->numPer}/NuevoUsuario",
                 'direccionUrl'=>url("/api/saveUsuario/{$guardpersonas->numPer}/NuevoUsuario")
 
-            ];
+            ];              //correo a comprobar/destino
             $mail=Mail::to($guardpersonas->email)
                     ->send(new envioVerificacionCorreo($datosUsuCorreo));
 

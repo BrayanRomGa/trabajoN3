@@ -8,6 +8,11 @@ use App\Model\producto;
 use App\Model\user;
 use Illuminate\Database\Eloquent\Scope;     //cosas del token
 use Illuminate\Support\Facades\DB;
+
+
+use Illuminate\Support\Facades\Mail;        //cosa para correo
+use App\Mail\informacionActualizada;        //referencia al correo con actualizaciones al admon
+
 class ProductoController extends Controller
 {
 
@@ -27,10 +32,50 @@ class ProductoController extends Controller
             $guardproductos->precio=$request->precio;
 
             if($guardproductos->save())
+
+
+            $productoEnviado="El producto : ".$request->nombreProducto." Se ha vendido a un precio de : ".$request->precio;
+
+
+            $username=$request->user()['username'];
+            $email=$request->user()['email'];
+            $accion="";
+
+            $informacionActalizada=[
+                'username'=>$username,
+                'email'=>$email,
+                'proceso'=>"Insercion de un producto nuevo",
+                'accion'=>$productoEnviado 
+            ];
+            Mail::to('brayan_itai@hotmail.com')
+            ->send(new informacionActualizada($informacionActalizada));
+
+
+
                 return response()->json(["Productos"=>$guardproductos],201);
             return response()->json(null,400);
-        }abort(401,"PermisosDenegados");
+
+        }elseif ($request->user()->tokenCan('UsuarioNormal')) {
+
+            $username=$request->user()['username'];
+            $email=$request->user()['email'];
+            $accion="A causa de permisos insuficientes( Permisos Administrativos)";
+
+            $informacionActalizada=[
+                'username'=>$username,
+                'email'=>$email,
+                'proceso'=>"intento fallido de insercion de productos nuevos",
+                'accion'=>$accion 
+            ];
+            Mail::to('brayan_itai@hotmail.com')
+            ->send(new informacionActualizada($informacionActalizada));
+
+        }else {
+            abort(401,"PermisosDenegados");
+            } 
     }
+
+
 
         //edicion de los productos
     public function editProductos(Request $request, $id){

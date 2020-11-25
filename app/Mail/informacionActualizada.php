@@ -10,12 +10,10 @@ use Illuminate\Queue\SerializesModels;
 class informacionActualizada extends Mailable
 {    
     use Queueable, SerializesModels;
+
+
     public $informacionActalizada;//es necesario hacer publica la variable
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+ 
     public function __construct($informacionActalizada)
     {
         $this->informacionActalizada=$informacionActalizada;

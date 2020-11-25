@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Mail;
 class envioVerificacionCorreo extends Mailable
 {
     use Queueable, SerializesModels;
+
+
     public $datosUsuCorreo;//es necesario hacer publica la variable
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+
+
     public function __construct($datosUsuCorreo)
     {
         $this->datosUsuCorreo=$datosUsuCorreo;

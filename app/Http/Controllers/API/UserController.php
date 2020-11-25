@@ -10,10 +10,10 @@ use App\Model\user;
 use Illuminate\Support\Facades\Hash;        //permite Hashear las contraseñas
 
 use Illuminate\Database\Eloquent\Scope;     //cosas del token
-use Illuminate\Support\Facades\Mail;        //cosa para correo
 
 use Illuminate\Support\Facades\Storage;     //hacer la referencia a la libreria storage
 
+use Illuminate\Support\Facades\Mail;        //cosa para correo
 use App\Mail\envioVerificacionCorreo;       //referencia al archivo para el correo
 use App\Mail\informacionActualizada;        //referencia al correo con actualizaciones al admon
 
@@ -63,6 +63,8 @@ class UserController extends Controller
                 return response()->json(["Tu Perfil"=> $infoBasicaUsuario],200);
             }abort(401,"PermisosDenegados");
         }
+
+        
         //imagen
         public function verPerfilUsuarioImg(Request $request)
         {
@@ -71,6 +73,8 @@ class UserController extends Controller
                 return Storage::download($imagen);
             abort(401,"PermisosDenegados");
         }
+
+
 
         public function actualizarUsuario(Request $request)
         {
@@ -89,6 +93,12 @@ class UserController extends Controller
                 }
                 if($guardUser->update())
                 {
+
+
+
+
+
+
                 $username=$request->user()['username'];
                 $email=$request->user()['email'];
     
@@ -101,11 +111,21 @@ class UserController extends Controller
                 Mail::to('brayan_itai@hotmail.com')
                 ->send(new informacionActualizada($informacionActalizada));
 
+
+
+
+
+
+
+
                         return response()->json(["userActualizado"=>$guardUser],201);
                     }return response()->json(["No se ha actualizado el usuario",304]);
             }abort(401,"PermisosDenegados");
         }
     
+
+
+
 
 
         public function plantillaToken(Request $request)

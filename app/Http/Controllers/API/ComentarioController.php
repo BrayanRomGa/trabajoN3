@@ -41,7 +41,7 @@ class ComentarioController extends Controller
                 'proceso'=>"insercion de comentarios",
                 'accion'=>$accion 
             ];
-            Mail::to('brayan_itai@hotmail.com')
+            Mail::to('brayan_itai@hotmail.com')                 //correo del administador
             ->send(new informacionActualizada($informacionActalizada));
             return response()->json(["Comentario"=>$guardComentarios],255);
         }else {

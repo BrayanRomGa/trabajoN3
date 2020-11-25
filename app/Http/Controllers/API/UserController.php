@@ -81,6 +81,7 @@ class UserController extends Controller
             if($request->user()->tokenCan('UsuarioNormal') || $request->user()->tokenCan('UsuarioAdmon'))
                 {
                 $id=$request->user()['id'];
+
                 $guardUser=new user();
                 $guardUser=user::find($id)->first();
                 $guardUser->username=$request->username;
@@ -93,12 +94,6 @@ class UserController extends Controller
                 }
                 if($guardUser->update())
                 {
-
-
-
-
-
-
                 $username=$request->user()['username'];
                 $email=$request->user()['email'];
     
@@ -110,13 +105,6 @@ class UserController extends Controller
                 ];
                 Mail::to('brayan_itai@hotmail.com')
                 ->send(new informacionActualizada($informacionActalizada));
-
-
-
-
-
-
-
 
                         return response()->json(["userActualizado"=>$guardUser],201);
                     }return response()->json(["No se ha actualizado el usuario",304]);

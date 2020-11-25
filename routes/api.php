@@ -21,8 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-
-
                                 // directorio de las rutas "productos"
 //ver productos
 Route::get('/productos/{id?}','API\ProductoController@showProductos')->where("id","[0-9]+");

@@ -37,6 +37,13 @@ Route::post('saveProfile','API\ProfileController@saveProfile');
 //ruta para crear el usuario
 Route::post('saveUsuario/{numPer?}/NuevoUsuario','API\UserController@saveUsuario')->where("numPer","[0-9]+");
 
+//cosas de android
+Route::post('/newUserVic','API\UserController@agregarusuaroVistor');
+Route::post('/login','API\UserController@login');
+
+
+
+
 
 //ruta para iniciar secion como usuario
 Route::post('/LogIn/User','AUTH\authTokenController@logIn');

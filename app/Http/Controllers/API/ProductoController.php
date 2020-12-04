@@ -57,6 +57,8 @@ class ProductoController extends Controller
 
         }elseif ($request->user()->tokenCan('UsuarioNormal')) {
 
+
+            
             $username=$request->user()['username'];
             $email=$request->user()['email'];
             $accion="A causa de permisos insuficientes( Permisos Administrativos)";

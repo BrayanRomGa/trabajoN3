@@ -197,4 +197,31 @@ class UserController extends Controller
 
 
 
+
+    public function agregarusuaroVistor(Request $request)
+    {
+    $user = new User();
+    $user ->username = $request->username;
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
+    if($user->save())
+    {
+        return response()->json(["Usuario"=>$user],201);
+    }
+    return response()->json("ErrorUsuario",400);   
+    }
+
+
+    public function login(Request $request)
+    { 
+        $user = User::where('email', $request->email)->first();
+        if(!$user || !Hash::check($request->password, $user->password))
+        {
+          return response()->json('datos erroneos',400);
+        }
+        $datos = array(
+        'email'=> $request->email
+         );
+         //$token = $user->createToken($request->email,[$user->role])->plainTextToken;
+         return response()->json(["Usuario"=>$user],201);    }
 }

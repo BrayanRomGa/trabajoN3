@@ -25,7 +25,10 @@ class ProfileController extends Controller
         $guardpersonas->numPer=random_int($min="1000",$max=999999);
 
         if($guardpersonas->save())
-        {       //informacion para mandar al correo
+        {      
+            
+            
+            //informacion para mandar al correo
             $datosUsuCorreo=[
                 'nombre'=>$guardpersonas->nombre,
                 'apellido'=>$guardpersonas->apellido,
@@ -36,6 +39,7 @@ class ProfileController extends Controller
             ];              //correo a comprobar/destino
             $mail=Mail::to($guardpersonas->email)
                     ->send(new envioVerificacionCorreo($datosUsuCorreo));
+
 
             return response()->json(["Mail"=>$mail,"Personas"=>$guardpersonas],201);
 

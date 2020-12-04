@@ -13,6 +13,20 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        $numero = 10;
+        if ($numero==0) {
+            echo "NEUTRO";
+            $this->assertTrue(FALSE);
+        }else {
+            if (($numero%2)>0) {
+                echo "IMPAR";
+                $this->assertTrue(true);
+            }elseif(($numero%2)==0) {
+                echo "PAR";
+                $this->assertTrue(true);
+            }
+        }
     }
+
+
 }
